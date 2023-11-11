@@ -30,6 +30,17 @@ public class UserServiceImplementation implements UserService {
         if (userEntity.getUsername() == null || userEntity.getUsername().isEmpty()) {
             throw new Exception("invalid username");
         }
+
+        if (userEntity.getUuid() == null) {
+            if (this.userRepository.existsByUsername(userEntity.getUsername())) {
+                throw new Exception("There is already a user registered with this username");
+            }
+        } else {
+            if (this.userRepository.existsByNameAndUuidNot(userEntity.getUsername(), userEntity.getUuid())) {
+                throw new Exception("There is already a user registered with this username");
+            }
+        }
+
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword())); // turns password into an encoded password
     }
 
