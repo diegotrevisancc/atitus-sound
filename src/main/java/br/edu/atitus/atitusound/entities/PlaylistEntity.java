@@ -1,12 +1,10 @@
 package br.edu.atitus.atitusound.entities;
 
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
 @Table(name = "playlist")
 public class PlaylistEntity extends GenericEntity {
     private Boolean publicShare;
