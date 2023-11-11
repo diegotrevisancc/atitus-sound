@@ -37,7 +37,9 @@ public class JwtUtils {
     }
 
     public String generateTokenFromUsername(String username) throws InvalidKeyException {
-        return Jwts.builder().setSubject(username).setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + jwtExpirationMs)).signWith(this.key(), SignatureAlgorithm.HS256).compact();
+        return Jwts.builder().setSubject(username).setIssuedAt(new Date()).
+                setExpiration(new Date(new Date().getTime() + jwtExpirationMs)).
+                signWith(this.key(), SignatureAlgorithm.HS256).compact();
     }
 
     public String getUsernameFromJwtToken(String token) {
