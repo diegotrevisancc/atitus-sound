@@ -13,10 +13,7 @@ import java.util.Collection;
 public class UserEntity extends GenericEntity implements UserDetails {
 
     private String email;
-
     private String username;
-
-    @JsonIgnore
     private String password;
 
     public String getEmail() {
@@ -42,12 +39,12 @@ public class UserEntity extends GenericEntity implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.username;
     }
 
     @Override

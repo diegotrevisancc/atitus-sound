@@ -35,7 +35,7 @@ public class ConfigSecurityFilterChain {
     public SecurityFilterChain getFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll().anyRequest().authenticated()).httpBasic();
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/authentication/**").permitAll().anyRequest().authenticated()).httpBasic();
 
         return httpSecurity.build();
     }

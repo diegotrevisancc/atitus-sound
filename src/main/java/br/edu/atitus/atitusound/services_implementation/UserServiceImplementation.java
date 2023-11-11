@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.rmi.server.ExportException;
+
 @Service
 public class UserServiceImplementation implements UserService {
     @Autowired
@@ -25,6 +27,9 @@ public class UserServiceImplementation implements UserService {
     @Override
     public void validate(UserEntity userEntity) throws Exception {
         UserService.super.validate(userEntity);
+        if (userEntity.getUsername() == null || userEntity.getUsername().isEmpty()) {
+            throw new Exception("invalid username");
+        }
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword())); // turns password into an encoded password
     }
 

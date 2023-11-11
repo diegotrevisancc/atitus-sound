@@ -1,5 +1,6 @@
 package br.edu.atitus.atitusound.controllers;
 
+import br.edu.atitus.atitusound.entities.ArtistEntity;
 import br.edu.atitus.atitusound.entities.UserEntity;
 import br.edu.atitus.atitusound.entities.dtos.LoginDTO;
 import br.edu.atitus.atitusound.entities.dtos.UserDTO;
@@ -27,14 +28,14 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<UserEntity> postSignup(@RequestBody UserDTO dto) throws Exception {
         UserEntity user = new UserEntity();
+
         user.setName(dto.getName());
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
-
         try {
             this.userService.save(user);
-            return ResponseEntity.ok(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(user);
         } catch (Exception exception) {
             return ResponseEntity.badRequest().header("error", exception.getMessage()).build();
         }

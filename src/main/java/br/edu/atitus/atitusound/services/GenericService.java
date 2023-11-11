@@ -20,20 +20,20 @@ public interface GenericService <TEntidade extends GenericEntity>{
         }
         if (entity.getUuid() == null) {
             if (this.getRepository().existsByName(entity.getName())) {
-                throw new Exception("This name alredy exist");
+                throw new Exception("This name already exist");
             }
         } else {
             if (!this.getRepository().existsById((entity.getUuid()))) {
-                throw new Exception("This uuid alredy exist");
+                throw new Exception("This uuid already exist");
             }
             if (this.getRepository().existsByNameAndUuidNot(entity.getName(), entity.getUuid())) {
-                throw new Exception("This name alredy exist");
+                throw new Exception("This name already exist");
             }
         }
     }
 
     default TEntidade save(TEntidade entity) throws Exception {
-        validate(entity);
+        this.validate(entity);
         return getRepository().save(entity);
     }
 
