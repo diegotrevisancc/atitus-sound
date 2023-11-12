@@ -14,6 +14,7 @@ public class UserEntity extends GenericEntity implements UserDetails {
 
     private String email;
     private String username;
+    @JsonIgnore
     private String password;
 
     public String getEmail() {

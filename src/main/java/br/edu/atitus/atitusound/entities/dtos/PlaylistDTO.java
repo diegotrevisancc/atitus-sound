@@ -8,15 +8,15 @@ import jakarta.persistence.ManyToMany;
 import java.util.List;
 
 public class PlaylistDTO extends GenericDTO{
-    private Boolean publicShare;
+    private Boolean publicshare;
     private List<MusicEntity> musicEntityList;
 
     public Boolean getPublicShare() {
-        return publicShare;
+        return publicshare;
     }
 
-    public void setPublicShare(Boolean publicShare) {
-        this.publicShare = publicShare;
+    public void setPublicShare(Boolean public_share) {
+        this.publicshare = public_share;
     }
 
     public List<MusicEntity> getMusicEntityList() {
