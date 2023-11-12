@@ -11,6 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.List;
 
 public interface PlaylistService extends GenericService<PlaylistEntity>{
-    Page<List<PlaylistEntity>> findByNameContainingIgnoreCase(String name, Pageable pageable) throws Exception;
+    Page<List<PlaylistEntity>> findByNameContainingIgnoreCase(Pageable pageable, String name) throws Exception;
 
 }

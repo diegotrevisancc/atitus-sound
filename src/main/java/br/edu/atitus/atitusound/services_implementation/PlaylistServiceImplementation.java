@@ -25,12 +25,13 @@ public class PlaylistServiceImplementation implements PlaylistService {
     @Override
     public void validate(PlaylistEntity playlistEntity) throws Exception {
         PlaylistService.super.validate(playlistEntity);
+        System.out.println("passando no validate do service imp");
         UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //get the user by the jwt token using context
         playlistEntity.setUserEntity(userEntity);
     }
 
     @Override
-    public Page<List<PlaylistEntity>> findByNameContainingIgnoreCase(String name, Pageable pageable) throws Exception {
+    public Page<List<PlaylistEntity>> findByNameContainingIgnoreCase(Pageable pageable, String name) throws Exception {
         UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println("passando na classe do playlistserviceimp");
         return this.playlistRepository.findByNameContainingIgnoreCaseAndUserOrPublicshare(name, userEntity, true, pageable);
