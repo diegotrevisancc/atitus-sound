@@ -2,6 +2,11 @@ package br.edu.atitus.atitusound.controllers;
 
 import br.edu.atitus.atitusound.entities.GenericEntity;
 import br.edu.atitus.atitusound.services.GenericService;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,7 +18,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "400", description = "Invalid Requisition or Validation Error",
+        content = @Content, headers = @Header(name = "error", description = "error description", schema= @Schema(implementation =  String.class))),
+        @ApiResponse(responseCode = "401", description = "UNAUTHORIZED", content = @Content),
+        @ApiResponse(responseCode = "403", description = "FORBIDDEN", content=@Content)
+})
 public abstract class GenericController<TEntidade extends GenericEntity, TDTO> {
 
     abstract GenericService<TEntidade> getService();
@@ -43,6 +53,7 @@ public abstract class GenericController<TEntidade extends GenericEntity, TDTO> {
     }
 
     @GetMapping("/{uuid}")
+    @ApiResponse(responseCode = "200", description = "OK")
     public ResponseEntity<TEntidade> getByUuid(@PathVariable UUID uuid) {
         Optional<TEntidade> entidade;
         try {
@@ -57,6 +68,7 @@ public abstract class GenericController<TEntidade extends GenericEntity, TDTO> {
     }
 
     @GetMapping
+    @ApiResponse(responseCode = "200", description = "OK")
     public ResponseEntity<Page<List<TEntidade>>> getAll(@PageableDefault(page = 0, size = 10, sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
                                                         @RequestParam String name) {
         Page<List<TEntidade>> entidades;
@@ -69,6 +81,7 @@ public abstract class GenericController<TEntidade extends GenericEntity, TDTO> {
     }
 
     @PostMapping
+    @ApiResponse(responseCode = "201", description = "Object registered with success")
     public ResponseEntity<TEntidade> save(@RequestBody TDTO dto) {
         TEntidade entidade = convertDTO2Entity(dto);
         try {
