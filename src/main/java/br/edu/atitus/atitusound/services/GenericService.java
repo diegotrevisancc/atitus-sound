@@ -56,7 +56,6 @@ public interface GenericService <TEntidade extends GenericEntity>{
 
 
     default Page<List<TEntidade>> findByNameContainingIgnoreCase(Pageable pageable, String name) throws Exception {
-        System.out.println("Passando no método da Generic Service");
         return getRepository().findByNameContainingIgnoreCase(pageable, name);
     }
 }

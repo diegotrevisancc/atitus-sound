@@ -11,11 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/playlists")
 public class PlaylistController extends GenericController<PlaylistEntity, PlaylistDTO>{
-    private final PlaylistService playlistService;
-
-    public PlaylistController(PlaylistService playlistService) {
-        this.playlistService = playlistService;
-    }
+    @Autowired
+    private PlaylistService playlistService;
     @Override
     public GenericService<PlaylistEntity> getService() {
         return this.playlistService;
